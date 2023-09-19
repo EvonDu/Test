@@ -1,6 +1,6 @@
 #!/bin/bash
 # 测试参数
-configs=${2} #"hichip_hc15xx_cb_b100_v30_lock,n,n;hichip_hc15xx_cb_b200_v21_xbmp5_c1,y,y"
+configs=${1} #"hichip_hc15xx_cb_b100_v30_lock,n,n;hichip_hc15xx_cb_b200_v21_xbmp5_c1,y,y"
 echo ${configs}
 
 # 遍历配置文件
