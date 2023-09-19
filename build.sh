@@ -3,7 +3,7 @@
 configs=${1} #"hichip_hc15xx_cb_b100_v30_lock,n,n;hichip_hc15xx_cb_b200_v21_xbmp5_c1,y,y"
 
 # 遍历配置文件
-echo "[TAG] Configs:"
+echo "[TAG] build configs:"
 configs_arr=(${configs//;/ });
 for config in ${configs_arr[@]}
 do
@@ -34,7 +34,7 @@ do
   # 判断是否关闭watchdog
   if [ "${item_disable_watchdog}" == "y" ];then
     # 关闭关门狗
-    echo "[MODIFY] Disable watchdog"
+    echo "[MODIFY] disable watchdog"
     sed -i "s/.*CONFIG_DRV_WDT.*/# CONFIG_DRV_WDT is not set/g" output/.config
     cat output/.config | egrep '.*CONFIG_DRV_WDT.*'
   fi
@@ -44,7 +44,7 @@ do
     # 备份配置
     cp output/.config output/.config.backup
     # 逐个WiFi编译
-    echo "[MODIFY] Enabled RTL8188FU"
+    echo "[MODIFY] enabled RTL8188FU"
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*/BR2_PACKAGE_PREBUILTS_RTL8188FU=y/g' output/.config
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*/# BR2_PACKAGE_PREBUILTS_RTL8188EU is not set/g' output/.config
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*/# BR2_PACKAGE_PREBUILTS_RTL8733BU is not set/g' output/.config
@@ -53,7 +53,7 @@ do
     cat output/.config | egrep '.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*'
     echo "[RUN] make all"
     make all
-    echo "[MODIFY] Enabled RTL8188EU"
+    echo "[MODIFY] enabled RTL8188EU"
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*/# BR2_PACKAGE_PREBUILTS_RTL8188FU is not set/g' output/.config
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*/BR2_PACKAGE_PREBUILTS_RTL8188EU=y/g' output/.config
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*/# BR2_PACKAGE_PREBUILTS_RTL8733BU is not set/g' output/.config
