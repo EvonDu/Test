@@ -3,7 +3,7 @@
 configs=${2} #"hichip_hc15xx_cb_b100_v30_lock,n,n;hichip_hc15xx_cb_b200_v21_xbmp5_c1,y,y"
 
 # 遍历配置文件
-echo "[TAG]遍历配置文件:"
+echo "[TAG] Configs:"
 configs_arr=(${configs//;/ });
 for config in ${configs_arr[@]}
 do
@@ -32,27 +32,27 @@ do
   if [ "${item_disable_watchdog}" == "y" ];then
     # 关闭关门狗
     echo "[MODIFY] Disable watchdog"
-    sed 's/\n(.*CONFIG_DRV_WDT.*)\n/# CONFIG_DRV_WDT is not set/g' output/.config >> output/.config
+    sed -i 's/\n(.*CONFIG_DRV_WDT.*)\n/# CONFIG_DRV_WDT is not set/g' output/.config
   fi
 
   # 判断是否编译多WiFi
   if [ "${item_multiple_wifi}" == "y" ];then
     echo "[MODIFY] RTL8188FU"
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*)\n/BR2_PACKAGE_PREBUILTS_RTL8188FU=y/g' output/.config >> output/.config
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188EU is not set/g' output/.config >> output/.config
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8733BU is not set/g' output/.config >> output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*)\n/BR2_PACKAGE_PREBUILTS_RTL8188FU=y/g' output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188EU is not set/g' output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8733BU is not set/g' output/.config
     echo "[RUN] make all"
     make all
     echo "[MODIFY] RTL8188EU"
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188FU is not set/g' output/.config >> output/.config
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*)\n/BR2_PACKAGE_PREBUILTS_RTL8188EU=y/g' output/.config >> output/.config
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8733BU is not set/g' output/.config >> output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188FU is not set/g' output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*)\n/BR2_PACKAGE_PREBUILTS_RTL8188EU=y/g' output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8733BU is not set/g' output/.config
     echo "[RUN] make all"
     make all
     echo "[MODIFY] RTL8733BU"
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188FU is not set/g' output/.config >> output/.config
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188EU is not set/g' output/.config >> output/.config
-    sed 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*)\n/BR2_PACKAGE_PREBUILTS_RTL8733BU=y/g' output/.config >> output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188FU is not set/g' output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*)\n/# BR2_PACKAGE_PREBUILTS_RTL8188EU is not set/g' output/.config
+    sed -i 's/\n(.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*)\n/BR2_PACKAGE_PREBUILTS_RTL8733BU=y/g' output/.config
     echo "[RUN] make all"
     make all
   else
