@@ -2,17 +2,6 @@
 # 测试参数
 configs=${2} #"hichip_hc15xx_cb_b100_v30_lock,n,n;hichip_hc15xx_cb_b200_v21_xbmp5_c1,y,y"
 
-# 输出相关
-echo "[TAG]Params"
-echo "* commit:$commit"
-echo "* configs:$configs"
-echo ""
-
-# 指定修订
-echo "[RUN]checkout $commit"
-git checkout $commit
-echo ""
-
 # 遍历配置文件
 echo "[TAG]遍历配置文件:"
 configs_arr=(${configs//;/ });
