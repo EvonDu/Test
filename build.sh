@@ -1,7 +1,6 @@
 #!/bin/bash
 # 测试参数
 configs=${1} #"hichip_hc15xx_cb_b100_v30_lock,n,n;hichip_hc15xx_cb_b200_v21_xbmp5_c1,y,y"
-echo ${configs}
 
 # 遍历配置文件
 echo "[TAG] Configs:"
@@ -28,6 +27,9 @@ do
   # 执行Config编译
   echo "[RUN] make ${item_name}_defconfig"
   make ${item_name}_defconfig
+
+  # 修改output/.comfig权限
+  chmod 777 output/.comfig
 
   # 判断是否关闭watchdog
   if [ "${item_disable_watchdog}" == "y" ];then
