@@ -29,7 +29,7 @@ do
   make ${item_name}_defconfig
 
   # 修改output/.comfig权限
-  chmod 777 output/.comfig
+  chmod 777 output/.config
 
   # 判断是否关闭watchdog
   if [ "${item_disable_watchdog}" == "y" ];then
