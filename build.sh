@@ -40,6 +40,9 @@ do
 
   # 判断是否编译多WiFi
   if [ "${item_multiple_wifi}" == "y" ];then
+    # 备份配置
+    cp output/.config output/.config.backup
+    # 逐个WiFi编译
     echo "[MODIFY] RTL8188FU"
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8188FU.*/BR2_PACKAGE_PREBUILTS_RTL8188FU=y/g' output/.config
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8188EU.*/# BR2_PACKAGE_PREBUILTS_RTL8188EU is not set/g' output/.config
@@ -58,9 +61,12 @@ do
     sed -i 's/.*BR2_PACKAGE_PREBUILTS_RTL8733BU.*/BR2_PACKAGE_PREBUILTS_RTL8733BU=y/g' output/.config
     echo "[RUN] make all"
     make all
+    # 恢复配置
+    mv output/.config.backup output/.config
   else
     echo "[RUN] make all"
     make all
+
   fi;
 
   echo "------------------------------------------------------------------------"
